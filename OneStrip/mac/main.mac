@@ -1,0 +1,195 @@
+#=====================================================
+# VISUALISATION
+#=====================================================
+
+#/vis/disable
+#/vis/enable
+#/control/execute ../Visualisation/visu.mac
+
+#/control/execute  mac/visu1.mac
+
+#=====================================================
+# VERBOSITY
+#=====================================================
+
+#/control/execute ../Verbose/verbose.mac
+
+#=====================================================
+# MATERIALS
+#=====================================================
+
+#/control/execute Visualisation/visu.mac
+#/gate/geometry/setMaterialDatabase ../GateMaterials.db
+
+/gate/geometry/setMaterialDatabase  data/GateMaterials.db
+
+#=====================================================
+# GEOMETRY
+#=====================================================
+
+#/control/execute ../Geometry/Modular_JPET.mac
+
+/control/execute  mac/Modular_dual_3x4_simple.mac
+
+#/gate/plastic/attachCrystalSD
+
+#/gate/geometry/setIonisationPotential PMMA 74. eV
+
+#=====================================================
+# PHANTOM
+#=====================================================
+
+#/control/execute ../Phantom/pmma_400mm_center.mac
+#/control/execute ../Phantom/pmma_10mm_center.mac
+#/gate/phantom/attachPhantomSD
+
+#=====================================================
+# PHYSICS
+#=====================================================
+
+#/gate/physics/addPhysicsList QGSP_BIC_HP_EMZ
+/gate/physics/addPhysicsList emstandard_opt4
+
+#/control/execute  mac/PhysList_photons_point_source.mac
+#/control/execute ../Physics/pet_em.mac
+#/control/execute ../Physics/protonRT.mac
+#/control/execute ../Physics/protonRT_our.mac
+
+#=====================================================
+# ACTORS
+#=====================================================
+
+#/gate/actor/addActor                  DoseActor  det
+#/gate/actor/det/save                  output/output.root
+#/gate/actor/det/attachTo    	         layer_1
+#/gate/actor/det/stepHitType           random
+#/gate/actor/det/setSize               24 500 6 mm
+#/gate/actor/det/setResolution         1 1 1
+#/gate/actor/det/enableEdep            true
+#/gate/actor/det/enableUncertaintyEdep true
+#/gate/actor/det/enableDose            false
+#/gate/actor/det/enableUncertaintyDose false
+#/gate/actor/det/enableNumberOfHits    true
+
+
+
+
+/gate/actor/addActor               SimulationStatisticActor stat
+/gate/actor/stat/attachTo          layer_1
+/gate/actor/stat/save              output/stat.txt
+
+/control/execute                    mac/phasespaceActor.mac
+
+/control/execute                    mac/psActor_outgoing.mac
+
+# Statistics for the phantom
+#/control/execute ../Actors/phantom_statistics.mac
+
+# Dose actor for the phantom
+#/control/execute ../Actors/phantom_dose_proton.mac
+
+# Secondary particles production actor
+#/control/execute ../Actors/phantom_secondary.mac
+
+# Production and stopping actor
+#/control/execute ../Actors/prod_B8.mac
+
+#/control/execute ../Actors/prod_C9.mac
+#/control/execute ../Actors/prod_C10.mac
+#/control/execute ../Actors/prod_C11.mac
+
+#/control/execute ../Actors/prod_N12.mac
+#/control/execute ../Actors/prod_N13.mac
+
+#/control/execute ../Actors/prod_O13.mac
+#/control/execute ../Actors/prod_O14.mac
+#/control/execute ../Actors/prod_O15.mac
+
+#/control/execute ../Actors/prod_P29.mac
+#/control/execute ../Actors/prod_P30.mac
+
+#/control/execute ../Actors/prod_S30.mac
+#/control/execute ../Actors/prod_S31.mac
+
+#/control/execute ../Actors/prod_K37.mac
+#/control/execute ../Actors/prod_K38.mac
+
+#/control/execute ../Actors/prod_Ca38.mac
+#/control/execute ../Actors/prod_Ca39.mac
+
+# JPET actors
+#/control/execute ../Actors/phantom_jpet_gamma.mac
+#/control/execute ../Actors/phantom_jpet_neutron.mac
+#/control/execute ../Actors/phantom_jpet_proton.mac
+#/control/execute ../Actors/phantom_jpet_genericion.mac
+#/control/execute ../Actors/phantom_jpet_positron.mac
+#/control/execute ../Actors/phantom_jpet.mac
+#/control/execute ../Actors/plastic_jpet.mac
+
+# JPET global actors
+#/control/execute ../Actors/global_test.mac
+
+# Phase Space Actor
+#/control/execute ../Actors/ps_test.mac
+#/control/execute ../Actors/ps_test_outgoing.mac
+#/control/execute ../Actors/ps_test_incoming.mac
+
+#=====================================================
+# INITIALISATION
+#=====================================================
+
+/gate/run/initialize
+#/gate/physics/print output/physics.txt
+
+#=====================================================
+# SOURCE
+#=====================================================
+
+/control/execute  mac/point_isocenter_mono.mac
+
+
+#/control/execute ../Sources/proton_beam_CCB.mac
+#/control/execute ../Sources/proton_beam_test.mac
+#/control/execute ../Sources/point_c_11.mac
+#/control/execute ../Sources/e+_point_source.mac
+#/control/execute ../Sources/point_beta_source.mac
+
+#=====================================================
+# OUTPUT
+#=====================================================
+
+/control/execute   mac/Output_scanner.mac
+
+#=====================================================
+# RANDOM
+#=====================================================
+
+/gate/random/setEngineName MersenneTwister
+#/gate/random/setEngineSeed 123456789
+/gate/random/setEngineSeed auto
+
+#=====================================================
+# ACQUISITION SETTINGS   
+#=====================================================
+
+#/tracking/verbose 1
+
+/gate/application/setTotalNumberOfPrimaries 1000000
+#/gate/application/setTimeStart 0. ms
+#/gate/application/setTimeStop 1. ms
+/gate/application/startDAQ
+
+#=====================================================
+# START BEAMS
+#=====================================================
+
+# JamesRandom Ranlux64 MersenneTwister
+#/gate/random/setEngineName MersenneTwister
+#/gate/random/setEngineSeed auto
+
+# /gate/random/verbose 1
+# /gate/source/verbose 0
+
+#/gate/application/noGlobalOutput
+#/gate/application/setTotalNumberOfPrimaries  1000000
+#/gate/application/start
