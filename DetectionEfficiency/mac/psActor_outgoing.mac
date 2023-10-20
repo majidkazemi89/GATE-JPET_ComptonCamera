@@ -1,0 +1,34 @@
+/gate/actor/addActor PhaseSpaceActor ps_actor_out
+
+/gate/actor/ps_actor_out/save output/ps_actor_out.root
+/gate/actor/ps_actor_out/attachTo layer_1
+
+/gate/actor/ps_actor_out/enableProductionProcess true
+
+
+/gate/actor/ps_actor_out/storeSecondaries false
+/gate/actor/ps_actor_out/enableTime true
+/gate/actor/ps_actor_out/enableLocalTime false
+/gate/actor/ps_actor_out/enableEmissionPoint true
+
+/gate/actor/ps_actor_out/enableProductionVolume true
+/gate/actor/ps_actor_out/enableWeight false
+/gate/actor/ps_actor_out/enableMass false
+/gate/actor/ps_actor_out/enableXDirection true
+/gate/actor/ps_actor_out/enableYDirection true
+/gate/actor/ps_actor_out/enableZDirection true
+
+/gate/actor/ps_actor_out/enableEkine true
+/gate/actor/ps_actor_out/enableXPosition true
+/gate/actor/ps_actor_out/enableYPosition true
+/gate/actor/ps_actor_out/enableZPosition true
+/gate/actor/ps_actor_out/enableParticleName true
+/gate/actor/ps_actor_out/enableTrackLength true
+
+/gate/actor/ps_actor_out/enablePDGCode false
+/gate/actor/ps_actor_out/storeOutgoingParticles true
+
+/gate/actor/ps_actor_out/enableTOut true
+/gate/actor/ps_actor_out/enableTProd true
+
+/gate/actor/ps_actor_out/setMaxFileSize  10 GB

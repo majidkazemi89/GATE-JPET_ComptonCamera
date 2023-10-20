@@ -1,0 +1,42 @@
+/gate/actor/addActor PhaseSpaceActor ps_actor
+
+/gate/actor/ps_actor/save output/ps_actor_in.root
+/gate/actor/ps_actor/attachTo layer_1
+
+/gate/actor/ps_actor/enableProductionProcess true
+#/gate/actor/ps_actor/enableDirection false
+#/gate/actor/ps_actor/useVolumeFrame
+
+/gate/actor/ps_actor/storeSecondaries false
+/gate/actor/ps_actor/enableTime true
+/gate/actor/ps_actor/enableLocalTime false
+/gate/actor/ps_actor/enableEmissionPoint true
+
+/gate/actor/ps_actor/enableProductionVolume true
+/gate/actor/ps_actor/enableWeight false
+/gate/actor/ps_actor/enableMass false
+/gate/actor/ps_actor/enableXDirection true
+/gate/actor/ps_actor/enableYDirection true
+/gate/actor/ps_actor/enableZDirection true
+
+/gate/actor/ps_actor/enableEkine true
+/gate/actor/ps_actor/enableXPosition true
+/gate/actor/ps_actor/enableYPosition true
+/gate/actor/ps_actor/enableZPosition true
+/gate/actor/ps_actor/enableParticleName true
+#/gate/actor/ps_actor/enableWeight false
+/gate/actor/ps_actor/enableTrackLength true
+
+/gate/actor/ps_actor/enablePDGCode false
+#/gate/actor/ps_actor/storeOutgoingParticles true
+/gate/actor/ps_actor/storeOutgoingParticles false
+
+/gate/actor/ps_actor/enableTOut true
+/gate/actor/ps_actor/enableTProd true
+
+/gate/actor/ps_actor/setMaxFileSize  10 GB
+
+#/gate/actor/ps_actor/addFilter particleFilter
+#/gate/actor/ps_actor/particleFilter/addParticle gamma
+#/gate/actor/ps_actor/particleFilter/addParticle e+
+#/gate/actor/ps_actor/particleFilter/addParticle GenericIon

@@ -1,0 +1,115 @@
+#=====================================================
+# VISUALISATION
+#=====================================================
+
+#/control/execute  mac/visu1.mac
+
+#=====================================================
+# VERBOSITY
+#=====================================================
+
+#/control/execute  mac/verbose.mac
+
+#=====================================================
+# MATERIALS
+#=====================================================
+
+/gate/geometry/setMaterialDatabase  data/GateMaterials.db
+
+#=====================================================
+# GEOMETRY
+#=====================================================
+
+/control/execute  mac/Modular_dual_3x4_simple.mac
+
+#/gate/plastic/attachCrystalSD
+
+#/gate/geometry/setIonisationPotential PMMA 74. eV
+
+#=====================================================
+# PHANTOM
+#=====================================================
+
+#/control/execute  mac/pmma_400mm_center.mac
+#/control/execute  mac/pmma_10mm_center.mac
+#/gate/phantom/attachPhantomSD
+
+#=====================================================
+# PHYSICS
+#=====================================================
+
+#/gate/physics/addPhysicsList QGSP_BIC_HP_EMZ
+/gate/physics/addPhysicsList emstandard_opt4
+
+#/control/execute  mac/PhysList_photons_point_source.mac
+
+#/gate/physics/Gamma/SetCutInRegion      world 1 mm
+#/gate/physics/Electron/SetCutInRegion   world 1 mm
+#/gate/physics/Positron/SetCutInRegion   world 1 mm
+
+
+#/gate/physics/Gamma/SetCutInRegion      layer_1 0.01 cm
+#/gate/physics/Electron/SetCutInRegion   layer_1 0.01 cm
+#/gate/physics/Positron/SetCutInRegion   layer_1 0.01 cm
+
+#=====================================================
+# ACTORS
+#=====================================================
+
+/gate/actor/addActor               SimulationStatisticActor stat
+/gate/actor/stat/attachTo          layer_1
+/gate/actor/stat/save              output/stat.txt
+
+#/control/execute                    mac/phasespaceActor.mac
+
+#/control/execute                    mac/psActor_outgoing.mac
+
+# JPET actors
+
+#/control/execute ../Actors/plastic_jpet.mac
+
+# JPET global actors
+#/control/execute ../Actors/global_test.mac
+
+#=====================================================
+# INITIALISATION
+#=====================================================
+
+/gate/run/initialize
+#/gate/physics/print output/physics.txt
+
+#=====================================================
+# SOURCE
+#=====================================================
+
+/control/execute  mac/point_isocenter_mono.mac
+
+#/control/execute  mac/source.mac
+
+#=====================================================
+# OUTPUT
+#=====================================================
+
+/control/execute   mac/Output_scanner.mac
+
+#/control/execute   mac/digitizer.mac
+
+#=====================================================
+# RANDOM
+#=====================================================
+
+/gate/random/setEngineName MersenneTwister
+#/gate/random/setEngineSeed 123456789
+/gate/random/setEngineSeed auto
+
+#=====================================================
+# ACQUISITION SETTINGS   
+#=====================================================
+
+#/tracking/verbose 1
+
+/gate/application/setTotalNumberOfPrimaries 1000000
+#/gate/application/setTimeStart 0. ms
+#/gate/application/setTimeStop 1. ms
+/gate/application/startDAQ
+
