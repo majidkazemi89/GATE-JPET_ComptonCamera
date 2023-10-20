@@ -1,0 +1,320 @@
+# WORLD INITIALIZATION
+
+/gate/world/geometry/setXLength 1100. mm
+/gate/world/geometry/setYLength 1100. mm
+/gate/world/geometry/setZLength 1500. mm
+/gate/world/vis/forceWireframe 1
+/gate/world/vis/forceSolid 0
+/gate/world/vis/setColor black
+/gate/world/vis/setVisible false
+
+
+# PHANTOM
+
+/gate/world/daughters/name phantom
+/gate/world/daughters/insert box
+/gate/phantom/geometry/setXLength 50. mm
+/gate/phantom/geometry/setYLength 50. mm
+#/gate/phantom/geometry/setZLength 368.2 mm
+/gate/phantom/geometry/setZLength 265.0 mm
+/gate/phantom/placement/setTranslation 0.0 0.0 0.0 mm
+#/gate/phantom/setMaterial PMMA
+/gate/phantom/setMaterial Water
+/gate/phantom/vis/forceWireframe 1
+/gate/phantom/vis/setColor yellow
+#/gate/phantom/disable
+
+
+# Phasespace SOURCE
+
+#/gate/world/daughters/name phspace1
+#/gate/world/daughters/insert cylinder
+#/gate/phspace1/geometry/setRmax 2.5 mm
+#/gate/phspace1/geometry/setHeight 184.1 mm
+#/gate/phspace1/placement/setTranslation 0.0 0.0 -92.05 mm
+#/gate/phspace1/setMaterial Air
+#/gate/phspace1/vis/forceWireframe 1
+#/gate/phspace1/vis/setColor green
+
+
+# HEAD (4x MODULES)
+
+/gate/world/daughters/name head
+/gate/world/daughters/insert box
+/gate/head/placement/setTranslation 384.0 0.0 0.0 mm
+/gate/head/geometry/setXLength 674. mm
+/gate/head/geometry/setYLength 500. mm
+/gate/head/geometry/setZLength 740. mm
+/gate/head/setMaterial Air
+/gate/head/vis/forceWireframe 1
+/gate/head/vis/forceSolid 0
+/gate/head/vis/setColor red
+/gate/head/vis/setVisible false
+
+
+# MODULE
+
+/gate/head/daughters/name module1
+/gate/head/daughters/insert box
+/gate/module1/placement/setTranslation 0.0 0.0 0.0 mm
+/gate/module1/geometry/setXLength 450. mm
+/gate/module1/geometry/setYLength 500. mm
+/gate/module1/geometry/setZLength 736. mm
+/gate/module1/setMaterial Air
+/gate/module1/vis/forceWireframe 1
+/gate/module1/vis/forceSolid 0
+/gate/module1/vis/setColor blue
+/gate/module1/vis/setVisible false
+
+
+# CRYSTAL (STRIP)
+
+/gate/module1/daughters/name crystal1
+/gate/module1/daughters/insert box
+/gate/crystal1/placement/setTranslation 0.0 0.0 0.0 mm
+/gate/crystal1/geometry/setXLength 450. mm
+/gate/crystal1/geometry/setYLength 500. mm
+/gate/crystal1/geometry/setZLength 91. mm 
+/gate/crystal1/setMaterial Air
+/gate/crystal1/vis/forceWireframe 1
+/gate/crystal1/vis/forceSolid 0
+/gate/crystal1/vis/setColor green
+/gate/crystal1/vis/setVisible false
+
+# LAYER1 MODULE
+
+#layer1 container
+/gate/crystal1/daughters/name layer_core1
+/gate/crystal1/daughters/insert box
+/gate/layer_core1/placement/setTranslation -172.0 0.0 0.0 mm
+/gate/layer_core1/geometry/setXLength 24. mm
+/gate/layer_core1/geometry/setYLength 500. mm
+/gate/layer_core1/geometry/setZLength 91. mm
+/gate/layer_core1/setMaterial Air
+/gate/layer_core1/vis/forceWireframe 1
+/gate/layer_core1/vis/setColor yellow
+
+
+/gate/layer_core1/daughters/name layer_1
+/gate/layer_core1/daughters/insert box
+/gate/layer_1/placement/setTranslation 0.0 0.0 0.0 mm
+/gate/layer_1/geometry/setXLength 24. mm
+/gate/layer_1/geometry/setYLength 500. mm
+/gate/layer_1/geometry/setZLength 6. mm
+/gate/layer_1/setMaterial EJ230
+#/gate/layer_1/vis/forceWireframe 1
+/gate/layer_1/vis/forceSolid 1
+/gate/layer_1/vis/setColor magenta
+
+# LAYER1 REPEATER 
+
+/gate/layer_1/repeaters/insert cubicArray
+/gate/layer_1/cubicArray/setRepeatNumberX 1
+/gate/layer_1/cubicArray/setRepeatNumberY 1
+/gate/layer_1/cubicArray/setRepeatNumberZ 13      
+/gate/layer_1/cubicArray/setRepeatVector 0. 0. 7.0 mm   
+
+# LAYER2 MODULE
+#layer2 container
+/gate/crystal1/daughters/name layer_core2
+/gate/crystal1/daughters/insert box
+#/gate/layer_core2/placement/setTranslation -98.0 0.0 0.0 mm # inter-det 50 and 50 mm
+#/gate/layer_core2/placement/setTranslation -128.0 0.0 0.0 mm # inter-det 20 and 50 mm
+/gate/layer_core2/placement/setTranslation -138.0 0.0 0.0 mm # inter-det 10 
+/gate/layer_core2/geometry/setXLength 24. mm
+/gate/layer_core2/geometry/setYLength 500. mm
+/gate/layer_core2/geometry/setZLength 91. mm
+/gate/layer_core2/setMaterial Air
+/gate/layer_core2/vis/forceWireframe 1
+/gate/layer_core2/vis/setColor yellow
+
+/gate/layer_core2/daughters/name layer_11
+/gate/layer_core2/daughters/insert box
+/gate/layer_11/placement/setTranslation 0.0 0.0 0.0 mm
+/gate/layer_11/geometry/setXLength 24. mm
+/gate/layer_11/geometry/setYLength 500. mm
+/gate/layer_11/geometry/setZLength 6. mm
+/gate/layer_11/setMaterial EJ230
+/gate/layer_11/vis/forceWireframe 1
+/gate/layer_11/vis/forceSolid 1
+/gate/layer_11/vis/setColor magenta
+
+# LAYER11 REPEATER 
+
+/gate/layer_11/repeaters/insert cubicArray
+/gate/layer_11/cubicArray/setRepeatNumberX 1
+/gate/layer_11/cubicArray/setRepeatNumberY 1
+/gate/layer_11/cubicArray/setRepeatNumberZ 13      
+/gate/layer_11/cubicArray/setRepeatVector 0. 0. 7.0 mm   
+
+
+# LAYER3 MODULE
+#layer3 container
+/gate/crystal1/daughters/name layer_core3
+/gate/crystal1/daughters/insert box
+#/gate/layer_core3/placement/setTranslation -24.0 0.0 0.0 mm # inter-det 50 and 50 mm
+#/gate/layer_core3/placement/setTranslation -84.0 0.0 0.0 mm  # inter-det 20 and 50 mm
+/gate/layer_core3/placement/setTranslation -104.0 0.0 0.0 mm  # inter-det 10 
+/gate/layer_core3/geometry/setXLength 24. mm
+/gate/layer_core3/geometry/setYLength 500. mm
+/gate/layer_core3/geometry/setZLength 91. mm
+/gate/layer_core3/setMaterial Air
+/gate/layer_core3/vis/forceWireframe 1
+/gate/layer_core3/vis/setColor yellow
+
+/gate/layer_core3/daughters/name layer_12
+/gate/layer_core3/daughters/insert box
+/gate/layer_12/placement/setTranslation 0.0 0.0 0.0 mm
+/gate/layer_12/geometry/setXLength 24. mm
+/gate/layer_12/geometry/setYLength 500. mm
+/gate/layer_12/geometry/setZLength 6. mm
+/gate/layer_12/setMaterial EJ230
+#/gate/layer_12/vis/forceWireframe 1
+/gate/layer_12/vis/forceSolid 1
+/gate/layer_12/vis/setColor magenta
+
+# LAYER12 REPEATER 
+
+/gate/layer_12/repeaters/insert cubicArray
+/gate/layer_12/cubicArray/setRepeatNumberX 1
+/gate/layer_12/cubicArray/setRepeatNumberY 1
+/gate/layer_12/cubicArray/setRepeatNumberZ 13      
+/gate/layer_12/cubicArray/setRepeatVector 0. 0. 7.0 mm   
+
+
+# LAYER4 MODULE
+#layer4 container
+/gate/crystal1/daughters/name layer_core4
+/gate/crystal1/daughters/insert box
+#/gate/layer_core4/placement/setTranslation 50.0 0.0 0.0 mm # inter-det 50 and 50 mm
+#/gate/layer_core4/placement/setTranslation -40.0 0.0 0.0 mm # inter-det 20 and 50 mm
+/gate/layer_core4/placement/setTranslation -70.0 0.0 0.0 mm # inter-det 10 
+/gate/layer_core4/geometry/setXLength 24. mm
+/gate/layer_core4/geometry/setYLength 500. mm
+/gate/layer_core4/geometry/setZLength 91. mm
+/gate/layer_core4/setMaterial Air
+/gate/layer_core4/vis/forceWireframe 1
+/gate/layer_core4/vis/setColor yellow
+
+/gate/layer_core4/daughters/name layer_13
+/gate/layer_core4/daughters/insert box
+/gate/layer_13/placement/setTranslation 0.0 0.0 0.0 mm
+/gate/layer_13/geometry/setXLength 24. mm
+/gate/layer_13/geometry/setYLength 500. mm
+/gate/layer_13/geometry/setZLength 6. mm
+/gate/layer_13/setMaterial EJ230
+#/gate/layer_13/vis/forceWireframe 1
+/gate/layer_13/vis/forceSolid 1
+/gate/layer_13/vis/setColor magenta
+
+# LAYER13 REPEATER 
+
+/gate/layer_13/repeaters/insert cubicArray
+/gate/layer_13/cubicArray/setRepeatNumberX 1
+/gate/layer_13/cubicArray/setRepeatNumberY 1
+/gate/layer_13/cubicArray/setRepeatNumberZ 13      
+/gate/layer_13/cubicArray/setRepeatVector 0. 0. 7.0 mm   
+
+
+# LAYER5 MODULE
+#layer5 container
+/gate/crystal1/daughters/name layer_core5
+/gate/crystal1/daughters/insert box
+#/gate/layer_core5/placement/setTranslation 124.0 0.0 0.0 mm # inter-det 50 and 50 mm
+#/gate/layer_core5/placement/setTranslation 4.0 0.0 0.0 mm # inter-det 20 and 50 mm
+/gate/layer_core5/placement/setTranslation -36.0 0.0 0.0 mm # inter-det 10 
+/gate/layer_core5/geometry/setXLength 24. mm
+/gate/layer_core5/geometry/setYLength 500. mm
+/gate/layer_core5/geometry/setZLength 91. mm
+/gate/layer_core5/setMaterial Air
+/gate/layer_core5/vis/forceWireframe 1
+/gate/layer_core5/vis/setColor yellow
+
+/gate/layer_core5/daughters/name layer_14
+/gate/layer_core5/daughters/insert box
+/gate/layer_14/placement/setTranslation 0.0 0.0 0.0 mm
+/gate/layer_14/geometry/setXLength 24. mm
+/gate/layer_14/geometry/setYLength 500. mm
+/gate/layer_14/geometry/setZLength 6. mm
+/gate/layer_14/setMaterial EJ230
+#/gate/layer_14/vis/forceWireframe 1
+/gate/layer_14/vis/forceSolid 1
+/gate/layer_14/vis/setColor magenta
+
+# LAYER14 REPEATER 
+
+/gate/layer_14/repeaters/insert cubicArray
+/gate/layer_14/cubicArray/setRepeatNumberX 1
+/gate/layer_14/cubicArray/setRepeatNumberY 1
+/gate/layer_14/cubicArray/setRepeatNumberZ 13      
+/gate/layer_14/cubicArray/setRepeatVector 0. 0. 7.0 mm   
+
+
+# LAYER6 MODULE
+#layer6 container
+/gate/crystal1/daughters/name layer_core6
+/gate/crystal1/daughters/insert box
+#/gate/layer_core6/placement/setTranslation 234.0 0.0 0.0 mm # inter-det 50 and 50 mm 5Scat
+#/gate/layer_core6/placement/setTranslation 114.0 0.0 0.0 mm  # inter-det 20 and 50 mm 5Scat
+#/gate/layer_core6/placement/setTranslation 84.0 0.0 0.0 mm # inter-det 20 and 20 mm 5Scat
+#/gate/layer_core6/placement/setTranslation 34.0 0.0 0.0 mm # inter-det 10 and 10 mm and x96 5Scat
+#/gate/layer_core6/placement/setTranslation 74.0 0.0 0.0 mm # inter-det 10 and 50 mm and x96 5Scat
+#/gate/layer_core6/placement/setTranslation 40.0 0.0 0.0 mm # inter-det 10 and 50 mm and x96 4Scat
+#/gate/layer_core6/placement/setTranslation 16.0 0.0 0.0 mm # inter-det 10 and 50 mm and x48 4Scat
+#/gate/layer_core6/placement/setTranslation 10.0 0.0 0.0 mm # inter-det 10 and 10 mm and x48 5Scat
+/gate/layer_core6/placement/setTranslation -2.0 0.0 0.0 mm # inter-det 10 and 10 mm and x24 5Scat
+#/gate/layer_core6/placement/setTranslation 18.0 0.0 0.0 mm # inter-det 10 and 30 mm and x24 5Scat
+#/gate/layer_core6/placement/setTranslation -104.0 0.0 0.0 mm # inter-det 10 and 10 mm and x24 2Scat
+/gate/layer_core6/geometry/setXLength 24. mm
+/gate/layer_core6/geometry/setYLength 500. mm
+/gate/layer_core6/geometry/setZLength 91. mm
+/gate/layer_core6/setMaterial Air
+/gate/layer_core6/vis/forceWireframe 1
+/gate/layer_core6/vis/setColor yellow
+
+/gate/layer_core6/daughters/name layer_2
+/gate/layer_core6/daughters/insert box
+/gate/layer_2/placement/setTranslation 0.0 0.0 0.0 mm
+/gate/layer_2/geometry/setXLength 24. mm
+/gate/layer_2/geometry/setYLength 500. mm
+/gate/layer_2/geometry/setZLength 6. mm
+#/gate/layer_2/setMaterial LYSO-Ce-Hilger
+/gate/layer_2/setMaterial EJ230
+/gate/layer_2/vis/forceWireframe 1
+/gate/layer_2/vis/forceSolid 1
+#/gate/layer_2/vis/setColor green
+/gate/layer_2/vis/setColor magenta
+
+# LAYER2 REPEATER 
+
+/gate/layer_2/repeaters/insert cubicArray
+/gate/layer_2/cubicArray/setRepeatNumberX 1
+/gate/layer_2/cubicArray/setRepeatNumberY 1
+/gate/layer_2/cubicArray/setRepeatNumberZ 13      
+/gate/layer_2/cubicArray/setRepeatVector 0. 0. 7.0 mm   
+
+# CRYSTAL (STRIP) REPEATER 
+
+/gate/crystal1/repeaters/insert cubicArray
+/gate/crystal1/cubicArray/setRepeatNumberX 1
+/gate/crystal1/cubicArray/setRepeatNumberY 1
+/gate/crystal1/cubicArray/setRepeatNumberZ 4
+/gate/crystal1/cubicArray/setRepeatVector 0. 0. 92. mm
+
+
+# MODULE REPEATER 
+
+#/gate/module1/repeaters/insert cubicArray
+#/gate/module1/cubicArray/setRepeatNumberX 1
+#/gate/module1/cubicArray/setRepeatNumberY 1
+#/gate/module1/cubicArray/setRepeatNumberZ 5
+#/gate/module1/cubicArray/setRepeatVector 0. 0. 99. mm
+
+
+
+#HEAD REPEATER
+
+#/gate/head/repeaters/insert ring
+#/gate/head/ring/setFirstAngle 0 degree
+#/gate/head/ring/setRepeatNumber 2
+#/gate/head/ring/enableAutoRotation

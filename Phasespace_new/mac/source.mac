@@ -1,0 +1,41 @@
+#################### Mode 2: Histogram ####################
+
+/gate/source/addSource histogram gps
+/gate/source/histogram/gps/particle gamma
+/gate/source/histogram/gps/energytype UserSpectrum
+#/gate/source/histogram/gps/ene/type UserSpectrum
+/gate/source/histogram/gps/setSpectrumFile  data/Histogram.txt
+/gate/source/histogram/setIntensity 1
+
+/gate/source/histogram/gps/angtype iso
+#/gate/source/histogram/gps/ang/type iso
+/gate/source/histogram/gps/type Volume
+/gate/source/histogram/gps/shape Cylinder
+/gate/source/histogram/gps/radius 2.5 mm
+/gate/source/histogram/gps/halfz 92.05 mm
+/gate/source/histogram/gps/centre 0. 0. -92.05 mm
+#/gate/source/histogram/gps/pos/type Volume
+#/gate/source/histogram/gps/pos/shape Cylinder
+#/gate/source/histogram/gps/pos/radius 2.5 mm
+#/gate/source/histogram/gps/pos/halfz 92.05 mm
+#/gate/source/histogram/gps/pos/centre 0. 0. -92.05 mm
+
+#/gate/source/histogram/visualize 10 red 2
+
+
+
+
+# the parameters below if you want the source to emit in an XY (transverse) plane
+
+#/gate/source/histogram/gps/mintheta 90. deg
+#/gate/source/histogram/gps/maxtheta 90. deg
+
+# the solid angle confined to the strip for source dist. 100mm and length of strip 500mm along y axis
+
+#/gate/source/histogram/gps/minphi 111.8 deg
+#/gate/source/histogram/gps/maxphi 248.2 deg
+
+# the solid angle confined to the strip for source dist. 200mm and length of strip 500mm along y axis
+
+#/gate/source/histogram/gps/minphi 128.66 deg
+#/gate/source/histogram/gps/maxphi 231.34 deg
