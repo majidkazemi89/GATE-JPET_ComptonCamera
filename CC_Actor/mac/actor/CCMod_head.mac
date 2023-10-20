@@ -1,0 +1,96 @@
+
+# ============================
+# == actor              ==
+# ============================
+
+/gate/actor/addActor  ComptonCameraActor                CC_digi_BB
+/gate/actor/CC_digi_BB/attachTo                         head
+
+
+
+/gate/actor/CC_digi_BB/save                               output/proposed_Twopointsrc4.44_8Modu_2x24Scat_4x24Abs_2e6.root
+
+
+/gate/actor/CC_digi_BB/saveHitsTree                           1
+/gate/actor/CC_digi_BB/saveSinglesTree                        1
+/gate/actor/CC_digi_BB/saveCoincidencesTree                   1
+/gate/actor/CC_digi_BB/saveCoincidenceChainsTree              1
+
+
+/gate/actor/CC_digi_BB/enablenCrystalCompt 1
+/gate/actor/CC_digi_BB/enablenCrystalRayl 1
+/gate/actor/CC_digi_BB/enablenCrystalConv 1
+/gate/actor/CC_digi_BB/enableSourcePDG 1
+/gate/actor/CC_digi_BB/enableSourceEnergy 1
+/gate/actor/CC_digi_BB/enableEnergyIni 1
+/gate/actor/CC_digi_BB/enableEnergyFin 1
+/gate/actor/CC_digi_BB/enableEnergy 1
+
+
+/gate/actor/CC_digi_BB/absorberSDVolume                     layer_2
+/gate/actor/CC_digi_BB/scattererSDVolume                    layer_1
+/gate/actor/CC_digi_BB/numberOfTotScatterers                    2
+
+
+#---------------------------------------------------------------------
+#                   Ideal  DIGITIZER
+#------------------------------------------------------------------
+/gate/digitizer/layers/insert adderComptPhotIdeal
+/gate/digitizer/layers/adderComptPhotIdeal/rejectEvtOtherProcesses 1
+
+#/gate/digitizer/layers/insert adder
+
+#/gate/digitizer/layers/insert localMultipleRejection
+#/gate/digitizer/layers/localMultipleRejection/chooseNewVolume layer_1
+#/gate/digitizer/layers/localMultipleRejection/layer_1/setMultipleDefinition volumeID
+#/gate/digitizer/layers/localMultipleRejection/layer_1/setEventRejection 1
+
+#/gate/digitizer/layers/localMultipleRejection/chooseNewVolume layer_11
+#/gate/digitizer/layers/localMultipleRejection/layer_11/setMultipleDefinition volumeID
+#/gate/digitizer/layers/localMultipleRejection/layer_11/setEventRejection 1
+
+#/gate/digitizer/layers/localMultipleRejection/chooseNewVolume layer_2
+#/gate/digitizer/layers/localMultipleRejection/layer_2/setMultipleDefinition volumeID
+#/gate/digitizer/layers/localMultipleRejection/layer_2/setEventRejection 1
+
+
+#------------------------- Once applying trigger by absorber -------------------
+
+#/gate/digitizer/layers/insert localTimeDelay
+#/gate/digitizer/layers/localTimeDelay/chooseNewVolume layer_1
+#/gate/digitizer/layers/localTimeDelay/layer_1/setTimeDelay 1. ns
+
+#/gate/digitizer/layers/localTimeDelay/chooseNewVolume layer_11
+#/gate/digitizer/layers/localTimeDelay/layer_11/setTimeDelay 1. ns
+
+#------------------------------------------------------------------
+
+### ENERGY CUT
+
+#/gate/digitizer/layers/insert localEnergyThresholder
+#/gate/digitizer/layers/localEnergyThresholder/chooseNewVolume layer_2
+#/gate/digitizer/layers/localEnergyThresholder/layer_2/setThreshold 1. MeV
+#/gate/digitizer/layers/localEnergyThresholder/layer_2/setLaw depositedEnergy
+
+
+#-------------------------------------------------------------------------------------------------------
+#             COINCIDENCE SORTER
+#------------------------------------------------------------------------------------------------
+
+/gate/digitizer/Coincidences/setEventIDCoinc 1
+#/gate/digitizer/Coincidences/setWindow 3. ns
+#/gate/digitizer/Coincidences/setTriggerOnlyByAbsorber 1
+#/gate/digitizer/Coincidences/setAcceptancePolicy4CC keepIfMultipleVolumeIDsInvolved 
+/gate/digitizer/Coincidences/setAcceptancePolicy4CC keepIfMultipleVolumeNamesInvolved
+
+#-------------------------------------------------------------------------------------------------------
+#           SEQUENCE COINCIDENCES 
+#------------------------------------------------------------------------------------------------
+/gate/digitizer/name sequenceCoincidence  
+/gate/digitizer/insert coincidenceChain 
+/gate/digitizer/sequenceCoincidence/addInputName Coincidences
+/gate/digitizer/sequenceCoincidence/insert sequenceRecon  
+/gate/digitizer/sequenceCoincidence/sequenceRecon/setSequencePolicy singlesTime
+#/gate/digitizer/sequenceCoincidence/sequenceRecon/setSequencePolicy axialDist2Source
+
+

@@ -1,0 +1,104 @@
+
+# ============================
+# == actor              ==
+# ============================
+
+/gate/actor/addActor  ComptonCameraActor                CC_digi_BB
+/gate/actor/CC_digi_BB/attachTo                         head
+
+
+
+/gate/actor/CC_digi_BB/save                               output/proposed_SmearInReco_Adder_8Modu_2x24Scat_4x24Abs_3ns_EnThresh.root
+#/gate/actor/CC_digi_BB/save                               output/proposed_schematic_8Modu_2x24Scat_4x24Abs.root
+
+/gate/actor/CC_digi_BB/saveHitsTree                           1
+/gate/actor/CC_digi_BB/saveSinglesTree                        1
+/gate/actor/CC_digi_BB/saveCoincidencesTree                   1
+/gate/actor/CC_digi_BB/saveCoincidenceChainsTree              1
+
+
+
+/gate/actor/CC_digi_BB/enableSourcePDG 1
+/gate/actor/CC_digi_BB/enableSourceEnergy 1
+/gate/actor/CC_digi_BB/enableEnergy 1
+
+
+/gate/actor/CC_digi_BB/absorberSDVolume                      layer_2
+/gate/actor/CC_digi_BB/scattererSDVolume                    layer_1
+/gate/actor/CC_digi_BB/numberOfTotScatterers                    2
+
+#---------------------------------------------------------------------
+#                     DIGITIZER
+#------------------------------------------------------------------
+/gate/digitizer/layers/insert adder
+
+#/gate/digitizer/layers/insert localBlurring  
+#/gate/digitizer/layers/localBlurring/chooseNewVolume layer_1
+#/gate/digitizer/layers/localBlurring/layer_1/setResolution 0.20
+#/gate/digitizer/layers/localBlurring/layer_1/setEnergyOfReference 341 keV 
+
+#/gate/digitizer/layers/localBlurring/chooseNewVolume layer_11
+#/gate/digitizer/layers/localBlurring/layer_11/setResolution 0.20
+#/gate/digitizer/layers/localBlurring/layer_11/setEnergyOfReference 341 keV 
+
+#/gate/digitizer/layers/localBlurring/chooseNewVolume layer_2
+#/gate/digitizer/layers/localBlurring/layer_2/setResolution 0.20
+#/gate/digitizer/layers/localBlurring/layer_2/setEnergyOfReference 341 keV
+
+
+
+#/gate/digitizer/layers/insert sp3Dlocalblurring
+#/gate/digitizer/layers/sp3Dlocalblurring/chooseNewVolume layer_1
+#/gate/digitizer/layers/sp3Dlocalblurring/layer_1/setSigma 0.0 5.0 0.0 mm
+#/gate/digitizer/layers/sp3Dlocalblurring/chooseNewVolume layer_11
+#/gate/digitizer/layers/sp3Dlocalblurring/layer_11/setSigma 0.0 5.0 0.0 mm
+#/gate/digitizer/layers/sp3Dlocalblurring/chooseNewVolume layer_2
+#/gate/digitizer/layers/sp3Dlocalblurring/layer_2/setSigma 0.0 5.0 0.0 mm
+
+
+
+#/gate/digitizer/layers/insert DoImodel
+#/gate/digitizer/layers/DoImodel/setAxis 0 0 1
+#/gate/digitizer/layers/DoImodel/setDoIModel DoIBlurrNegExp
+#/gate/digitizer/layers/DoImodel/DoIBlurrNegExp/setExpInvDecayConst -2.85144 mm
+#/gate/digitizer/layers/DoImodel/DoIBlurrNegExp/setCrysEntranceFWHM 8 mm
+
+### ENERGY CUT
+
+/gate/digitizer/layers/insert localEnergyThresholder
+/gate/digitizer/layers/localEnergyThresholder/chooseNewVolume layer_2
+/gate/digitizer/layers/localEnergyThresholder/layer_2/setThreshold 1. MeV
+/gate/digitizer/layers/localEnergyThresholder/layer_2/setLaw depositedEnergy
+
+
+
+#------------------------- Once applying trigger by absorber -------------------
+
+#/gate/digitizer/layers/insert localTimeDelay
+#/gate/digitizer/layers/localTimeDelay/chooseNewVolume layer_1
+#/gate/digitizer/layers/localTimeDelay/layer_1/setTimeDelay 3. ns
+
+#/gate/digitizer/layers/insert localTimeDelay
+#/gate/digitizer/layers/localTimeDelay/chooseNewVolume layer_11
+#/gate/digitizer/layers/localTimeDelay/layer_11/setTimeDelay 3. ns
+
+#-------------------------------------------------------------------------------------------------------
+#             COINCIDENCE SORTER
+#------------------------------------------------------------------------------------------------
+
+/gate/digitizer/Coincidences/setWindow 3. ns
+#/gate/digitizer/Coincidences/setTriggerOnlyByAbsorber 1
+#/gate/digitizer/Coincidences/setAcceptancePolicy4CC keepIfMultipleVolumeIDsInvolved 
+/gate/digitizer/Coincidences/setAcceptancePolicy4CC keepIfMultipleVolumeNamesInvolved
+
+#-------------------------------------------------------------------------------------------------------
+#           SEQUENCE COINCIDENCES 
+#------------------------------------------------------------------------------------------------
+/gate/digitizer/name sequenceCoincidence  
+/gate/digitizer/insert coincidenceChain 
+/gate/digitizer/sequenceCoincidence/addInputName Coincidences
+/gate/digitizer/sequenceCoincidence/insert sequenceRecon  
+/gate/digitizer/sequenceCoincidence/sequenceRecon/setSequencePolicy singlesTime
+#/gate/digitizer/sequenceCoincidence/sequenceRecon/setSequencePolicy axialDist2Source
+#/gate/digitizer/sequenceCoincidence/sequenceRecon/setSequencePolicy randomly
+#/gate/digitizer/sequenceCoincidence/sequenceRecon/setSequencePolicy lowestEnergyFirst

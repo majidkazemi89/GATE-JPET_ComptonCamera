@@ -1,0 +1,63 @@
+
+# ============================
+# == actor              ==
+# ============================
+
+/gate/actor/addActor  ComptonCameraActor                CC_digi_BB
+/gate/actor/CC_digi_BB/attachTo                         head
+
+
+
+/gate/actor/CC_digi_BB/save                               output/test2.root
+
+
+/gate/actor/CC_digi_BB/saveHitsTree                           1
+/gate/actor/CC_digi_BB/saveSinglesTree                        1
+/gate/actor/CC_digi_BB/saveCoincidencesTree                   1
+/gate/actor/CC_digi_BB/saveCoincidenceChainsTree              1
+
+
+/gate/actor/CC_digi_BB/enablenCrystalCompt 1
+/gate/actor/CC_digi_BB/enablenCrystalRayl 1
+/gate/actor/CC_digi_BB/enablenCrystalConv 1
+/gate/actor/CC_digi_BB/enableSourcePDG 1
+/gate/actor/CC_digi_BB/enableSourceEnergy 1
+/gate/actor/CC_digi_BB/enableEnergyIni 1
+/gate/actor/CC_digi_BB/enableEnergyFin 1
+/gate/actor/CC_digi_BB/enableEnergy 1
+
+
+/gate/actor/CC_digi_BB/absorberSDVolume                      layer_2
+/gate/actor/CC_digi_BB/scattererSDVolume                    layer_1
+/gate/actor/CC_digi_BB/numberOfTotScatterers                    1
+
+
+#---------------------------------------------------------------------
+#                   ideal  DIGITIZER
+#------------------------------------------------------------------
+/gate/digitizer/layers/insert adderComptPhotIdeal
+/gate/digitizer/layers/adderComptPhotIdeal/rejectEvtOtherProcesses 1
+
+
+
+#-------------------------------------------------------------------------------------------------------
+#             COINCIDENCE SORTER
+#------------------------------------------------------------------------------------------------
+
+/gate/digitizer/Coincidences/setEventIDCoinc 1
+#/gate/digitizer/Coincidences/setWindow 5. ns
+#/gate/digitizer/Coincidences/setTriggerOnlyByAbsorber 1
+#/gate/digitizer/Coincidences/setAcceptancePolicy4CC keepIfMultipleVolumeIDsInvolved 
+/gate/digitizer/Coincidences/setAcceptancePolicy4CC keepIfMultipleVolumeNamesInvolved
+
+#-------------------------------------------------------------------------------------------------------
+#           SEQUENCE COINCIDENCES 
+#------------------------------------------------------------------------------------------------
+/gate/digitizer/name sequenceCoincidence  
+/gate/digitizer/insert coincidenceChain 
+/gate/digitizer/sequenceCoincidence/addInputName Coincidences
+/gate/digitizer/sequenceCoincidence/insert sequenceRecon  
+/gate/digitizer/sequenceCoincidence/sequenceRecon/setSequencePolicy singlesTime
+#/gate/digitizer/sequenceCoincidence/sequenceRecon/setSequencePolicy axialDist2Source
+
+
