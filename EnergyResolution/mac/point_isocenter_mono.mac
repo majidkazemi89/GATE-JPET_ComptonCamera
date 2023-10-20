@@ -1,0 +1,31 @@
+# POINT SOURCE
+
+/gate/source/addSource pointsource gps
+/gate/source/pointsource/gps/particle gamma
+/gate/source/pointsource/gps/pos/type Point
+/gate/source/pointsource/gps/pos/centre 302.25 0. 0. mm
+/gate/source/pointsource/gps/energytype Mono
+/gate/source/pointsource/gps/monoenergy 6.13 MeV
+/gate/source/pointsource/gps/angtype iso
+
+# the parameters below if you want the source to emit in an XY (transverse) plane
+
+#/gate/source/pointsource/gps/mintheta 90. deg
+#/gate/source/pointsource/gps/maxtheta 90. deg
+
+# the solid angle confined to the strip for source dist. 100mm and length of strip 500mm along y axis
+
+#/gate/source/pointsource/gps/minphi 111.8 deg
+#/gate/source/pointsource/gps/maxphi 248.2 deg
+
+# the solid angle confined to the strip for source dist. 200mm and length of strip 500mm along y axis
+
+#/gate/source/pointsource/gps/minphi 128.66 deg
+#/gate/source/pointsource/gps/maxphi 231.34 deg
+
+#/gate/source/pointsource/visualize 20 green 2
+
+#/gate/source/pointsource/gps/mintheta 67.5 deg
+#/gate/source/pointsource/gps/maxtheta 112.5 deg
+#/gate/source/pointsource/gps/minphi 157.5 deg
+#/gate/source/pointsource/gps/maxphi 202.5 deg

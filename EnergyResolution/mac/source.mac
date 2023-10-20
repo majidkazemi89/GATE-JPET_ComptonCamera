@@ -1,0 +1,26 @@
+#################### Mode 2: Histogram ####################
+
+/gate/source/addSource histogram gps
+/gate/source/histogram/gps/particle gamma
+/gate/source/histogram/gps/energytype UserSpectrum
+/gate/source/histogram/gps/setSpectrumFile  data/Histogram.txt
+/gate/source/histogram/setIntensity 1
+
+/gate/source/histogram/gps/pos/type Point
+/gate/source/histogram/gps/pos/centre 212.25 0. 0. mm
+/gate/source/histogram/gps/angtype iso
+
+# the parameters below if you want the source to emit in an XY (transverse) plane
+
+#/gate/source/histogram/gps/mintheta 90. deg
+#/gate/source/histogram/gps/maxtheta 90. deg
+
+# the solid angle confined to the strip for source dist. 100mm and length of strip 500mm along y axis
+
+#/gate/source/histogram/gps/minphi 111.8 deg
+#/gate/source/histogram/gps/maxphi 248.2 deg
+
+# the solid angle confined to the strip for source dist. 200mm and length of strip 500mm along y axis
+
+#/gate/source/histogram/gps/minphi 128.66 deg
+#/gate/source/histogram/gps/maxphi 231.34 deg

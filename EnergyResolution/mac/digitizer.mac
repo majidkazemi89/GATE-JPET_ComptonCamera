@@ -1,0 +1,101 @@
+#=====================================================
+#   DIGITIZER (DETECTOR ELECTRONIC RESPONSE)
+#          AND COINCIDENCES SORTER
+#===================================================== 
+
+# DIGITIZER
+
+/gate/digitizer/Singles/insert adder
+/gate/digitizer/Singles/insert readout
+/gate/digitizer/Singles/readout/setDepth 4
+
+/gate/digitizer/Singles/insert transferEfficiency
+/gate/digitizer/Singles/transferEfficiency/chooseNewVolume layer_1
+/gate/digitizer/Singles/transferEfficiency/layer_1/setTECoef 0.27
+
+/gate/digitizer/Singles/insert lightYield
+/gate/digitizer/Singles/lightYield/chooseNewVolume layer_1
+/gate/digitizer/Singles/lightYield/layer_1/setLightOutput 10000
+
+/gate/digitizer/Singles/insert quantumEfficiency
+/gate/digitizer/Singles/quantumEfficiency/chooseQEVolume layer_1
+/gate/digitizer/Singles/quantumEfficiency/setUniqueQE 0.2
+
+/gate/digitizer/Singles/insert intrinsicResolutionBlurring
+/gate/digitizer/Singles/intrinsicResolutionBlurring/chooseNewVolume layer_1
+/gate/digitizer/Singles/intrinsicResolutionBlurring/layer_1/setIntrinsicResolution 0.083
+/gate/digitizer/Singles/intrinsicResolutionBlurring/layer_1/setEnergyOfReference 341 keV
+
+### a calibration between N photo-electron and Energy
+
+/gate/digitizer/Singles/insert calibration     
+
+### ENERGY BLURRING
+
+#/gate/digitizer/Singles/insert blurring
+#/gate/digitizer/Singles/blurring/setResolution 0.20
+#/gate/digitizer/Singles/blurring/setEnergyOfReference 341. keV
+
+#/gate/digitizer/Singles/blurring
+#/gate/digitizer/Singles/blurring/setLaw inverseSquare
+#/gate/digitizer/Singles/blurring/inverseSquare/setResolution 0.15
+#/gate/digitizer/Singles/blurring/inverseSquare/setEnergyOfReference 511. keV
+
+
+### ENERGY CUT
+
+#/gate/digitizer/Singles/insert thresholder
+#/gate/digitizer/Singles/thresholder/setThreshold 200. keV
+#/gate/digitizer/Singles/insert upholder 
+#/gate/digitizer/Singles/upholder/setUphold 380. keV
+
+# COINCIDENCES SORTER 
+
+#/gate/digitizer/Coincidences/setInputName Singles
+#/gate/digitizer/Coincidences/setOffset 0. ns 
+#/gate/digitizer/Coincidences/setWindow 1.5 ns 
+#/gate/digitizer/Coincidences/allPulseOpenCoincGate true
+#/gate/digitizer/Coincidences/MultiplesPolicy takeAllGoods
+#/gate/digitizer/Coincidences/describe
+
+# OUTPUT
+
+/gate/output/root/enable
+/gate/output/root/setFileName output/results
+/gate/output/root/setRootSinglesAdderFlag 0
+/gate/output/root/setRootSinglesReadoutFlag 0
+/gate/output/root/setRootHitFlag 1
+/gate/output/root/setRootSinglesFlag 1
+/gate/output/root/setRootCoincidencesFlag 0
+
+
+#/gate/output/ascii/enable
+#/gate/output/ascii/setFileName output/results
+#/gate/output/ascii/setOutFileHitsFlag 0
+#/gate/output/ascii/setOutFileSinglesFlag 1
+#/gate/output/ascii/setOutFileCoincidencesFlag 1
+
+### COINCIDENCES SORTER 
+
+#/gate/digitizer/Coincidences/minSectorDifference 1
+
+### DEAD TIME 
+
+#/gate/digitizer/Singles/insert deadtime
+#/gate/digitizer/Singles/deadtime/setDeadTime 300. ps
+#/gate/digitizer/Singles/deadtime/setMode paralysable
+#/gate/digitizer/Singles/deadtime/chooseDTVolume block
+
+#/gate/digitizer/name delay
+#/gate/digitizer/insert coincidenceSorter
+#/gate/digitizer/delay/setWindow 3500. ps
+#/gate/digitizer/delay/setOffset 500. ns
+#/gate/digitizer/delay/describe
+
+#/gate/digitizer/name finalCoinc
+#/gate/digitizer/insert coincidenceChain
+#/gate/digitizer/finalCoinc/addInputName delay
+#/gate/digitizer/finalCoinc/addInputName Coincidences
+#/gate/digitizer/finalCoinc/usePriority true
+#/gate/digitizer/finalCoinc/describe
+

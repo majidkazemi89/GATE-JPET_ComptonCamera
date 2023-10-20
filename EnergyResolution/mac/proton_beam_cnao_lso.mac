@@ -1,0 +1,82 @@
+#=====================================================
+#   DIGITIZER (DETECTOR ELECTRONIC RESPONSE)
+#          AND COINCIDENCES SORTER
+#===================================================== 
+
+# DIGITIZER
+
+/gate/digitizer/Singles/insert adder
+/gate/digitizer/Singles/insert readout
+#/gate/digitizer/Singles/readout/setDepth 1
+
+### ENERGY CUT
+
+/gate/digitizer/Singles/insert thresholder
+/gate/digitizer/Singles/thresholder/setThreshold 425. keV
+/gate/digitizer/Singles/insert upholder 
+/gate/digitizer/Singles/upholder/setUphold 595. keV
+
+### ENERGY BLURRING
+
+/gate/digitizer/Singles/insert blurring
+/gate/digitizer/Singles/blurring/setLaw inverseSquare
+/gate/digitizer/Singles/blurring/inverseSquare/setResolution 0.13
+/gate/digitizer/Singles/blurring/inverseSquare/setEnergyOfReference 511. keV
+
+# COINCIDENCES SORTER
+
+/gate/digitizer/Coincidences/setInputName Singles
+/gate/digitizer/Coincidences/setOffset 0. ns 
+/gate/digitizer/Coincidences/setWindow 2. ns
+#/gate/digitizer/Coincidences/allPulseOpenCoincGate true
+#/gate/digitizer/Coincidences/MultiplesPolicy takeAllGoods
+#/gate/digitizer/Coincidences/describe
+
+# OUTPUT
+
+/gate/output/root/enable
+/gate/output/root/setFileName proton_beam_results
+/gate/output/root/setRootSinglesAdderFlag 0
+/gate/output/root/setRootSinglesReadoutFlag 0
+/gate/output/root/setRootHitFlag 0
+/gate/output/root/setRootSinglesFlag 0
+/gate/output/root/setRootCoincidencesFlag 1
+
+
+#/gate/output/ascii/enable
+#/gate/output/ascii/setFileName sensitivity_results
+#/gate/output/ascii/setOutFileHitsFlag 0
+#/gate/output/ascii/setOutFileSinglesFlag 1
+#/gate/output/ascii/setOutFileCoincidencesFlag 1
+
+### COINCIDENCES SORTER 
+
+/gate/digitizer/Coincidences/minSectorDifference 1  
+
+### DEAD TIME 
+
+#/gate/digitizer/Singles/insert deadtime
+#/gate/digitizer/Singles/deadtime/setDeadTime 300. ps
+#/gate/digitizer/Singles/deadtime/setMode paralysable
+#/gate/digitizer/Singles/deadtime/chooseDTVolume block
+
+### ENERGY BLURRING
+
+#/gate/digitizer/Singles/insert blurring
+#/gate/digitizer/Singles/blurring/setResolution 0.26
+#/gate/digitizer/Singles/blurring/setResolution 0.
+#/gate/digitizer/Singles/blurring/setEnergyOfReference 511. keV
+
+#/gate/digitizer/name delay
+#/gate/digitizer/insert coincidenceSorter
+#/gate/digitizer/delay/setWindow 3500. ps
+#/gate/digitizer/delay/setOffset 500. ns
+#/gate/digitizer/delay/describe
+
+#/gate/digitizer/name finalCoinc
+#/gate/digitizer/insert coincidenceChain
+#/gate/digitizer/finalCoinc/addInputName delay
+#/gate/digitizer/finalCoinc/addInputName Coincidences
+#/gate/digitizer/finalCoinc/usePriority true
+#/gate/digitizer/finalCoinc/describe
+
