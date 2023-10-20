@@ -1,0 +1,127 @@
+###################################################################
+#                                                                 #
+#                        GATE simulation                          #
+#                                                                 #
+###################################################################
+#
+#------------------------------------------------------------------ 
+# VERBOSE
+#------------------------------------------------------------------ 
+
+
+/control/execute                   mac/visualize/verbosity.mac
+
+# ============================
+# == LOAD DATABASE           ==
+# ===========================
+/gate/geometry/setMaterialDatabase    data/GateMaterials.db
+
+#------------------------------------------------------------------ 
+# GEOMETRY
+#------------------------------------------------------------------ 
+
+
+
+#/control/execute                  mac/Modular_dual_3x4_simple_CCMod.mac
+
+/control/execute                  mac/GeoPrototype.mac
+
+
+#------------------------------------------------------------------ 
+# PHYSICS
+#------------------------------------------------------------------ 
+/gate/physics/addPhysicsList emstandard_opt4
+
+
+
+/gate/physics/Gamma/SetCutInRegion      world 1 mm
+/gate/physics/Electron/SetCutInRegion   world 1 mm
+/gate/physics/Positron/SetCutInRegion   world 1 mm
+
+
+/gate/physics/Gamma/SetCutInRegion      layer_1 0.01 cm
+/gate/physics/Electron/SetCutInRegion   layer_1 0.01 cm
+/gate/physics/Positron/SetCutInRegion   layer_1 0.01 cm
+
+/gate/physics/Gamma/SetCutInRegion      layer_2 0.01 cm
+/gate/physics/Electron/SetCutInRegion   layer_2 0.01 cm
+/gate/physics/Positron/SetCutInRegion   layer_2 0.01 cm
+
+/gate/physics/Gamma/SetCutInRegion      layer_11 0.01 cm
+/gate/physics/Electron/SetCutInRegion   layer_11 0.01 cm
+/gate/physics/Positron/SetCutInRegion   layer_11 0.01 cm
+
+#/gate/physics/Gamma/SetCutInRegion      layer_12 0.01 cm
+#/gate/physics/Electron/SetCutInRegion   layer_12 0.01 cm
+#/gate/physics/Positron/SetCutInRegion   layer_12 0.01 cm
+
+
+#/gate/physics/Gamma/SetCutInRegion      layer_3 0.01 cm
+#/gate/physics/Electron/SetCutInRegion   layer_3 0.01 cm
+#/gate/physics/Positron/SetCutInRegion   layer_3 0.01 cm
+
+#=============================
+#== ACTORs
+#==========================================
+
+/gate/actor/addActor               SimulationStatisticActor stat
+/gate/actor/stat/save              output/stat.txt
+/gate/actor/stat/saveEveryNSeconds 10
+
+
+##CCMod
+#/control/execute                   mac/actor/CCMod.mac
+
+/control/execute                   mac/actor/CCMod_head.mac
+
+#/control/execute                   mac/actor/CCMod_head_adder.mac
+
+#------------------------------------------------------------------ 
+# INITIALIZE
+#------------------------------------------------------------------ 
+/gate/run/initialize
+
+
+#------------------------------------------------------------------ 
+# VISUALIZATION
+#------------------------------------------------------------------ 
+#/control/execute                     mac/visualize/visu.mac
+
+#------------------------------------------------------------------ 
+# SOURCE
+#------------------------------------------------------------------ 
+
+
+#/control/execute                      mac/pointgamma_isocenter_mono.mac
+
+/control/execute                      mac/Twopointgamma_isocenter.mac
+
+
+# ============================
+# == OUTPUT                ==
+# ============================
+
+/gate/application/noGlobalOutput
+
+#------------------------------------------------------------------
+#====================================================
+#  R A N D O M   E N G I N E  A N D  S E E D
+#====================================================
+/control/execute                   mac/seed/SetSeed_MersenneTwister.mac
+
+
+#=====================================================
+#   M E A S U R E M E N T   S E T T I N G S   
+#=====================================================
+
+#/gate/application/setTimeSlice  1 s
+#/gate/application/setTimeStart   0.00   s
+#/gate/application/setTimeStop    1 s
+
+/gate/application/setTotalNumberOfPrimaries 2000000
+
+
+/gate/application/startDAQ
+
+exit
+

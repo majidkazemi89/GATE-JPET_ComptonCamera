@@ -1,0 +1,238 @@
+# WORLD INITIALIZATION
+
+/gate/world/geometry/setXLength 1100. mm
+/gate/world/geometry/setYLength 1100. mm
+/gate/world/geometry/setZLength 1500. mm
+/gate/world/vis/forceWireframe 1
+/gate/world/vis/forceSolid 0
+/gate/world/vis/setColor black
+/gate/world/vis/setVisible false
+
+
+
+# HEAD (4x MODULES)
+
+/gate/world/daughters/name head
+/gate/world/daughters/insert box
+/gate/head/placement/setTranslation 380.25 0.0 0.0 mm
+/gate/head/geometry/setXLength 160. mm
+#/gate/head/geometry/setXLength 192. mm     # Absorber layer with 40 mm width
+#/gate/head/geometry/setXLength 296. mm   # Adding the fourth layer
+/gate/head/geometry/setYLength 500. mm
+/gate/head/geometry/setZLength 400. mm
+#/gate/head/geometry/setZLength 712. mm
+/gate/head/setMaterial Air
+/gate/head/vis/forceWireframe 1
+/gate/head/vis/forceSolid 0
+/gate/head/vis/setColor red
+/gate/head/vis/setVisible false
+
+
+# MODULE
+
+/gate/head/daughters/name module1
+/gate/head/daughters/insert box
+/gate/module1/placement/setTranslation 0.0 0.0 0.0 mm
+/gate/module1/geometry/setXLength 160. mm
+#/gate/module1/geometry/setXLength 192. mm
+#/gate/module1/geometry/setXLength 296. mm
+/gate/module1/geometry/setYLength 500. mm
+/gate/module1/geometry/setZLength 96. mm
+#/gate/module1/geometry/setZLength 174. mm
+/gate/module1/setMaterial Air
+/gate/module1/vis/forceWireframe 1
+/gate/module1/vis/forceSolid 0
+/gate/module1/vis/setColor blue
+/gate/module1/vis/setVisible false
+
+
+# CRYSTAL (STRIP)
+
+/gate/module1/daughters/name crystal1
+/gate/module1/daughters/insert box
+/gate/crystal1/placement/setTranslation 0.0 0.0 0.0 mm
+/gate/crystal1/geometry/setXLength 160. mm
+#/gate/crystal1/geometry/setXLength 192. mm
+#/gate/crystal1/geometry/setXLength 296. mm
+/gate/crystal1/geometry/setYLength 500. mm
+/gate/crystal1/geometry/setZLength 91. mm # If you want to see the whole detection setup (triple layer dual-head), replace 91. with 6. 
+#/gate/crystal1/geometry/setZLength 169. mm
+/gate/crystal1/setMaterial Air
+/gate/crystal1/vis/forceWireframe 1
+/gate/crystal1/vis/forceSolid 0
+/gate/crystal1/vis/setColor yellow
+/gate/crystal1/vis/setVisible false
+
+# LAYER1 MODULE
+
+#layer1 container
+/gate/crystal1/daughters/name layer_core1
+/gate/crystal1/daughters/insert box
+/gate/layer_core1/placement/setTranslation -68.0 0.0 0.0 mm
+/gate/layer_core1/geometry/setXLength 24. mm
+#/gate/layer_core1/geometry/setXLength 30. mm
+/gate/layer_core1/geometry/setYLength 500. mm
+/gate/layer_core1/geometry/setZLength 91. mm
+#/gate/layer_core1/geometry/setZLength 169. mm
+/gate/layer_core1/setMaterial Air
+/gate/layer_core1/vis/forceWireframe 1
+/gate/layer_core1/vis/setColor yellow
+
+
+/gate/layer_core1/daughters/name layer_1
+/gate/layer_core1/daughters/insert box
+/gate/layer_1/placement/setTranslation 0.0 0.0 0.0 mm
+/gate/layer_1/geometry/setXLength 24. mm
+#/gate/layer_1/geometry/setXLength 30. mm
+/gate/layer_1/geometry/setYLength 500. mm
+/gate/layer_1/geometry/setZLength 6. mm
+/gate/layer_1/setMaterial EJ230
+#/gate/layer_1/vis/forceWireframe 1
+/gate/layer_1/vis/forceSolid 1
+/gate/layer_1/vis/setColor magenta
+
+# LAYER1 REPEATER 
+
+/gate/layer_1/repeaters/insert cubicArray
+/gate/layer_1/cubicArray/setRepeatNumberX 1
+/gate/layer_1/cubicArray/setRepeatNumberY 1
+/gate/layer_1/cubicArray/setRepeatNumberZ 13      # If you want to see the whole detection setup (triple layer dual-head), replace 13 with 1 
+/gate/layer_1/cubicArray/setRepeatVector 0. 0. 7. mm   # If you want to see the whole detection setup (triple layer dual-head), replace 7 with 0
+
+# LAYER2 MODULE
+#layer2 container
+/gate/crystal1/daughters/name layer_core2
+/gate/crystal1/daughters/insert box
+/gate/layer_core2/placement/setTranslation 0.0 0.0 0.0 mm
+/gate/layer_core2/geometry/setXLength 24. mm
+#/gate/layer_core2/geometry/setXLength 30. mm
+/gate/layer_core2/geometry/setYLength 500. mm
+/gate/layer_core2/geometry/setZLength 91. mm
+#/gate/layer_core2/geometry/setZLength 169. mm
+/gate/layer_core2/setMaterial Air
+/gate/layer_core2/vis/forceWireframe 1
+/gate/layer_core2/vis/setColor yellow
+
+/gate/layer_core2/daughters/name layer_11
+/gate/layer_core2/daughters/insert box
+/gate/layer_11/placement/setTranslation 0.0 0.0 0.0 mm
+/gate/layer_11/geometry/setXLength 24. mm
+#/gate/layer_11/geometry/setXLength 30. mm
+/gate/layer_11/geometry/setYLength 500. mm
+/gate/layer_11/geometry/setZLength 6. mm
+/gate/layer_11/setMaterial EJ230
+/gate/layer_11/vis/forceWireframe 1
+/gate/layer_11/vis/forceSolid 1
+/gate/layer_11/vis/setColor magenta
+
+# LAYER2 REPEATER 
+
+/gate/layer_11/repeaters/insert cubicArray
+/gate/layer_11/cubicArray/setRepeatNumberX 1
+/gate/layer_11/cubicArray/setRepeatNumberY 1
+/gate/layer_11/cubicArray/setRepeatNumberZ 13      # If you want to see the whole detection setup (triple layer dual-head), replace 13 with 1
+/gate/layer_11/cubicArray/setRepeatVector 0. 0. 7. mm   # If you want to see the whole detection setup (triple layer dual-head), replace 7 with 0
+
+# LAYER3 MODULE
+#layer3 container
+#/gate/crystal1/daughters/name layer_core3
+#/gate/crystal1/daughters/insert box
+#/gate/layer_core3/placement/setTranslation 68.0 0.0 0.0 mm
+#/gate/layer_core3/geometry/setXLength 24. mm
+#/gate/layer_core3/geometry/setYLength 500. mm
+#/gate/layer_core3/geometry/setZLength 91. mm
+#/gate/layer_core3/geometry/setZLength 169. mm
+#/gate/layer_core3/setMaterial Air
+#/gate/layer_core3/vis/forceWireframe 1
+#/gate/layer_core3/vis/setColor yellow
+
+#/gate/layer_core3/daughters/name layer_12
+#/gate/layer_core3/daughters/insert box
+#/gate/layer_12/placement/setTranslation 0.0 0.0 0.0 mm
+#/gate/layer_12/geometry/setXLength 24. mm
+#/gate/layer_12/geometry/setYLength 500. mm
+#/gate/layer_12/geometry/setZLength 12. mm
+#/gate/layer_12/setMaterial EJ230
+#/gate/layer_12/vis/forceWireframe 1
+#/gate/layer_12/vis/forceSolid 1
+#/gate/layer_12/vis/setColor magenta
+
+# LAYER3 REPEATER 
+
+#/gate/layer_12/repeaters/insert cubicArray
+#/gate/layer_12/cubicArray/setRepeatNumberX 1
+#/gate/layer_12/cubicArray/setRepeatNumberY 1
+#/gate/layer_12/cubicArray/setRepeatNumberZ 13      # If you want to see the whole detection setup (triple layer dual-head), replace 13 with 1
+#/gate/layer_12/cubicArray/setRepeatVector 0. 0. 13. mm   # If you want to see the whole detection setup (triple layer dual-head), replace 7 with 0
+
+
+# LAYER4 MODULE
+#layer4 container
+/gate/crystal1/daughters/name layer_core4
+/gate/crystal1/daughters/insert box
+###/gate/layer_core4/placement/setTranslation 136.0 0.0 0.0 mm
+#/gate/layer_core4/placement/setTranslation 76.0 0.0 0.0 mm
+/gate/layer_core4/placement/setTranslation 68.0 0.0 0.0 mm
+/gate/layer_core4/geometry/setXLength 24. mm
+#/gate/layer_core4/geometry/setXLength 40. mm
+/gate/layer_core4/geometry/setYLength 500. mm
+/gate/layer_core4/geometry/setZLength 91. mm
+#/gate/layer_core4/geometry/setZLength 169. mm
+/gate/layer_core4/setMaterial Air
+/gate/layer_core4/vis/forceWireframe 1
+/gate/layer_core4/vis/setColor yellow
+
+/gate/layer_core4/daughters/name layer_3
+/gate/layer_core4/daughters/insert box
+/gate/layer_3/placement/setTranslation 0.0 0.0 0.0 mm
+/gate/layer_3/geometry/setXLength 24. mm
+#/gate/layer_3/geometry/setXLength 40. mm
+/gate/layer_3/geometry/setYLength 500. mm
+/gate/layer_3/geometry/setZLength 91. mm
+#/gate/layer_3/geometry/setZLength 169. mm
+#/gate/layer_3/setMaterial EJ230
+/gate/layer_3/setMaterial LYSO-Ce-Hilger
+/gate/layer_3/vis/forceWireframe 1
+/gate/layer_3/vis/forceSolid 1
+/gate/layer_3/vis/setColor green
+
+# LAYER3 REPEATER 
+
+#/gate/layer_3/repeaters/insert cubicArray
+#/gate/layer_3/cubicArray/setRepeatNumberX 1
+#/gate/layer_3/cubicArray/setRepeatNumberY 1
+#/gate/layer_3/cubicArray/setRepeatNumberZ 13      # If you want to see the whole detection setup (triple layer dual-head), replace 13 with 1
+#/gate/layer_3/cubicArray/setRepeatVector 0. 0. 7. mm   # If you want to see the whole detection setup (triple layer dual-head), replace 7 with 0
+
+
+# CRYSTAL (STRIP) REPEATER 
+
+#/gate/crystal1/repeaters/insert cubicArray
+#/gate/crystal1/cubicArray/setRepeatNumberX 1
+#/gate/crystal1/cubicArray/setRepeatNumberY 1
+#/gate/crystal1/cubicArray/setRepeatNumberZ 13
+#/gate/crystal1/cubicArray/setRepeatVector 0. 0. 7. mm
+
+# MODULE REPEATER 
+
+/gate/module1/repeaters/insert cubicArray
+/gate/module1/cubicArray/setRepeatNumberX 1
+/gate/module1/cubicArray/setRepeatNumberY 1
+/gate/module1/cubicArray/setRepeatNumberZ 4
+/gate/module1/cubicArray/setRepeatVector 0. 0. 100. mm
+#/gate/module1/cubicArray/setRepeatVector 0. 0. 178. mm
+
+
+#HEAD REPEATER
+
+#/gate/head/repeaters/insert ring
+#/gate/head/ring/setFirstAngle 0 degree
+#/gate/head/ring/setRepeatNumber 2
+#/gate/head/ring/enableAutoRotation
+
+
+
+
+
+
+
